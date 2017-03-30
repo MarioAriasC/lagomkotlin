@@ -1,10 +1,6 @@
-# lagomkotlin
-An example of Lightbend's Lagom project with Kotlin
-
-This is the basic Lagom's Java Hello World example. I duplicated all Java classes to Kotlin with the prefix K, e.g,:
- 
-GreetingMessage.java  
-```java
+/*
+ * Copyright (C) 2016-2017 Lightbend Inc. <https://www.lightbend.com>
+ */
 package org.cakesolutions.hello.api;
 
 import javax.annotation.Nullable;
@@ -49,28 +45,3 @@ public final class GreetingMessage {
     return MoreObjects.toStringHelper("GreetingMessage").add("message", message).toString();
   }
 }
-``` 
-
-KGreetingMessage.kt
-```kotlin
-package org.cakesolutions.hello.api
-
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import javax.annotation.concurrent.Immutable
-
-@Immutable
-@JsonDeserialize
-data class KGreetingMessage @JsonCreator constructor(val message: String)
-```
-
-As you can see, Kotlin code is a lot shorter and readable
-
-## Run
-
-Just type
-
-```bash
-mvn lagom:runAll
-```
-And then go to [http://localhost:9000/api/hello/Kotlin](http://localhost:9000/api/hello/Kotlin)
