@@ -5,6 +5,7 @@ package org.cakesolutions.hello.impl;
 
 import akka.Done;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
@@ -38,7 +39,7 @@ public interface HelloCommand extends Jsonable {
     public final String message;
 
     @JsonCreator
-    public UseGreetingMessage(String message) {
+    public UseGreetingMessage(@JsonProperty("message") String message) {
       this.message = Preconditions.checkNotNull(message, "name");
     }
 
@@ -80,7 +81,7 @@ public interface HelloCommand extends Jsonable {
     public final Optional<String> organization;
 
     @JsonCreator
-    public Hello(String name, Optional<String> organization) {
+    public Hello(@JsonProperty("name") String name, @JsonProperty("organization") Optional<String> organization) {
       this.name = Preconditions.checkNotNull(name, "name");
       this.organization = Preconditions.checkNotNull(organization, "organization");
     }
