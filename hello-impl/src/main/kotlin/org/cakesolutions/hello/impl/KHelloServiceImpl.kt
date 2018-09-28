@@ -4,13 +4,13 @@ import akka.Done
 import akka.NotUsed
 import com.lightbend.lagom.javadsl.api.ServiceCall
 import com.lightbend.lagom.javadsl.persistence.PersistentEntityRegistry
-import org.cakesolutions.hello.api.HelloService
 import org.cakesolutions.hello.api.KGreetingMessage
-import java.util.*
+import org.cakesolutions.hello.api.KHelloService
+import java.util.Optional
 import javax.inject.Inject
 
 
-class KHelloServiceImpl @Inject constructor(private val persistentEntityRegistry: PersistentEntityRegistry) : HelloService {
+class KHelloServiceImpl @Inject constructor(private val persistentEntityRegistry: PersistentEntityRegistry) : KHelloService {
 
 	init {
 		persistentEntityRegistry.register(KHelloEntity::class.java)

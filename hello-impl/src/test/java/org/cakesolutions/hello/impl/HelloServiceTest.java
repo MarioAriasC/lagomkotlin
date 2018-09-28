@@ -3,21 +3,22 @@
  */
 package org.cakesolutions.hello.impl;
 
-import org.cakesolutions.hello.api.HelloService;
 import org.cakesolutions.hello.api.KGreetingMessage;
+import org.cakesolutions.hello.api.KHelloService;
 import org.junit.Test;
 
 import static com.lightbend.lagom.javadsl.testkit.ServiceTest.defaultSetup;
 import static com.lightbend.lagom.javadsl.testkit.ServiceTest.withServer;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class HelloServiceTest {
 
   @Test
   public void shouldStorePersonalizedGreeting() throws Exception {
     withServer(defaultSetup().withCassandra(true), server -> {
-      HelloService service = server.client(HelloService.class);
+      KHelloService service = server.client(KHelloService.class);
 
       String msg1 = service.hello("Alice").invoke().toCompletableFuture().get(5, SECONDS);
       assertEquals("Hello, Alice", msg1); // default greeting

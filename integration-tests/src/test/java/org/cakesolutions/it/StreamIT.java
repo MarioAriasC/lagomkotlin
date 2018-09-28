@@ -9,9 +9,9 @@ import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import com.lightbend.lagom.javadsl.client.integration.LagomClientFactory;
-import org.cakesolutions.hello.api.HelloService;
 import org.cakesolutions.hello.api.KGreetingMessage;
-import org.cakesolutions.stream.api.StreamService;
+import org.cakesolutions.hello.api.KHelloService;
+import org.cakesolutions.stream.api.KStreamService;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,8 +29,8 @@ public class StreamIT {
     private static final String SERVICE_LOCATOR_URI = "http://localhost:8000";
 
     private static LagomClientFactory clientFactory;
-    private static HelloService helloService;
-    private static StreamService streamService;
+    private static KHelloService helloService;
+    private static KStreamService streamService;
     private static ActorSystem system;
     private static Materializer mat;
 
@@ -38,8 +38,8 @@ public class StreamIT {
     public static void setup() {
         clientFactory = LagomClientFactory.create("integration-test", StreamIT.class.getClassLoader());
         // One of the clients can use the service locator, the other can use the service gateway, to test them both.
-        helloService = clientFactory.createDevClient(HelloService.class, URI.create(SERVICE_LOCATOR_URI));
-        streamService = clientFactory.createDevClient(StreamService.class, URI.create(SERVICE_LOCATOR_URI));
+        helloService = clientFactory.createDevClient(KHelloService.class, URI.create(SERVICE_LOCATOR_URI));
+        streamService = clientFactory.createDevClient(KStreamService.class, URI.create(SERVICE_LOCATOR_URI));
 
         system = ActorSystem.create();
         mat = ActorMaterializer.create(system);
@@ -48,10 +48,10 @@ public class StreamIT {
     @Test
     public void helloWorld() throws Exception {
         String answer = await(helloService.hello("foo").invoke());
-        assertEquals("Hello, foo!", answer);
+        assertEquals("Hello, foo", answer);
         await(helloService.useGreeting("bar").invoke(new KGreetingMessage("Hi")));
         String answer2 = await(helloService.hello("bar").invoke());
-        assertEquals("Hi, bar!", answer2);
+        assertEquals("Hi, bar", answer2);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class StreamIT {
                 Source.from(Arrays.asList("a", "b", "c"))
                         .concat(Source.maybe())));
         List<String> messages = await(response.take(3).runWith(Sink.seq(), mat));
-        assertEquals(Arrays.asList("Hello, a!", "Hello, b!", "Hello, c!"), messages);
+        assertEquals(Arrays.asList("Hello, a", "Hello, b", "Hello, c"), messages);
     }
 
     private <T> T await(CompletionStage<T> future) throws Exception {
