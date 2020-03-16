@@ -15,9 +15,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.cakesolutions</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>hello-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>coroutine-service-call</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.lightbend.lagom</groupId>

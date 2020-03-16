@@ -25,6 +25,11 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>coroutine-service-call</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.lightbend.lagom</groupId>
             <artifactId>lagom-javadsl-server_2.11</artifactId>
         </dependency>
